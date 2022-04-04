@@ -35,3 +35,11 @@ gallery.addEventListener('click', imgClick);
 let lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
+
+//css
+
+let style = document.createElement('STYLE');
+style.type = 'text/css';
+style.innerHTML =
+  '.sl-overlay {background: linear-gradient(0deg, rgba(120,121,9,1) 0%, rgba(0,6,179,1) 100%);}';
+document.querySelector('body').append(style);
