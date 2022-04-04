@@ -26,7 +26,6 @@ gallery.append(...imgArr);
 
 function imgClick() {
   event.preventDefault();
-  const originalImg = event.target.getAttribute('data-source');
   lightbox.open();
 }
 
@@ -37,7 +36,6 @@ let lightbox = new SimpleLightbox('.gallery a', {
 });
 
 //css
-
 let style = document.createElement('STYLE');
 style.type = 'text/css';
 style.innerHTML =
