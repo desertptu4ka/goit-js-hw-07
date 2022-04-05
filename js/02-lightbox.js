@@ -29,8 +29,6 @@ function imgClick() {
   lightbox.open();
 }
 
-gallery.addEventListener('click', imgClick);
-
 let lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
