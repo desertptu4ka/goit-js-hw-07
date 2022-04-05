@@ -24,12 +24,7 @@ galleryItems.forEach(({ preview, original, description }) => {
 
 gallery.append(...imgArr);
 
-function imgClick() {
-  event.preventDefault();
-  lightbox.open();
-}
-
-let lightbox = new SimpleLightbox('.gallery a', {
+new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
