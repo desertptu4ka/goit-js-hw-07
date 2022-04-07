@@ -32,8 +32,6 @@ function imgClick() {
     .querySelector('img')
     .setAttribute('src', originalImg);
   instance.show();
-  //Escape
-  document.addEventListener('keydown', closeWIndow);
 }
 
 gallery.addEventListener('click', imgClick);
@@ -49,6 +47,12 @@ const instance = basicLightbox.create(
     closable: true,
     onClose: (instance) => {
       instance.element().querySelector('img').setAttribute('src', '');
+      //Escape
+      document.removeEventListener('keydown', closeWIndow);
+    },
+    onShow: () => {
+      //Escape
+      document.addEventListener('keydown', closeWIndow);
     },
   }
 );
@@ -58,7 +62,6 @@ function closeWIndow() {
   if (event.code === 'Escape') {
     if (instance.visible()) {
       instance.close();
-      document.removeEventListener('keydown', closeWIndow);
     }
   }
 }
