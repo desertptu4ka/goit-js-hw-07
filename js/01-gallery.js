@@ -4,34 +4,36 @@ import { galleryItems } from './gallery-items.js';
 console.log(galleryItems);
 
 const gallery = document.querySelector('.gallery');
-const imgArr = [];
+const imgArr = galleryItems.map(
+  ({ preview, original, description }) => {
+    return `
+  <a class="gallery__link" href="${original}">
+    <img
+      class="gallery__image"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
+    />
+  </a>
+`;
+  }
+);
 
-galleryItems.forEach(({ preview, original, description }) => {
-  const wrap = document.createElement('A');
-  const img = document.createElement('IMG');
-
-  wrap.classList.add('gallery__link');
-  wrap.setAttribute('href', original);
-
-  img.classList.add('gallery__image');
-  img.setAttribute('src', preview);
-  img.setAttribute('data-source', original);
-  img.setAttribute('atl', description);
-
-  wrap.append(img);
-  imgArr.push(wrap);
-});
-
-gallery.append(...imgArr);
+gallery.innerHTML = imgArr.join('');
 
 function imgClick() {
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
   event.preventDefault();
-  const originalImg = event.target.getAttribute('data-source');
+  const originalImg = event.target.dataset.source;
   instance
     .element()
     .querySelector('img')
     .setAttribute('src', originalImg);
   instance.show();
+  //Escape
+  document.addEventListener('keydown', closeWIndow);
 }
 
 gallery.addEventListener('click', imgClick);
@@ -51,10 +53,12 @@ const instance = basicLightbox.create(
   }
 );
 
-document.addEventListener('keydown', () => {
+//Escape
+function closeWIndow() {
   if (event.code === 'Escape') {
     if (instance.visible()) {
       instance.close();
+      document.removeEventListener('keydown', closeWIndow);
     }
   }
-});
+}

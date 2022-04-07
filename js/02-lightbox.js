@@ -4,25 +4,17 @@ import { galleryItems } from './gallery-items.js';
 console.log(galleryItems);
 
 const gallery = document.querySelector('.gallery');
-const imgArr = [];
+const imgArr = galleryItems.map(
+  ({ preview, original, description }) => {
+    return `
+  <a class="gallery__item" href="${original}">
+    <img class="gallery__image" src="${preview}" alt="${description}" title="${description}" />
+  </a>
+`;
+  }
+);
 
-galleryItems.forEach(({ preview, original, description }) => {
-  const wrap = document.createElement('A');
-  const img = document.createElement('IMG');
-
-  wrap.classList.add('gallery__item');
-  wrap.setAttribute('href', original);
-
-  img.classList.add('gallery__image');
-  img.setAttribute('src', preview);
-  img.setAttribute('atl', description);
-  img.setAttribute('title', description);
-
-  wrap.append(img);
-  imgArr.push(wrap);
-});
-
-gallery.append(...imgArr);
+gallery.innerHTML = imgArr.join('');
 
 new SimpleLightbox('.gallery a', {
   captionDelay: 250,
